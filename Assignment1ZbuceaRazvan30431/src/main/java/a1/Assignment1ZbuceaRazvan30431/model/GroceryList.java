@@ -14,12 +14,22 @@ import java.util.List;
 @Setter
 @ToString
 @Entity
-@Table(name = "User")
-public class User {
+@Table(name = "GroceryList")
+public class GroceryList {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
-    private List<GroceryList> groceryLists = new ArrayList<>();
+    private String name;
+
+    public GroceryList(String name) {
+        this.name = name;
+    }
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "groceryList")
+    private List<GroceryItem> groceryItems = new ArrayList<>();
+
+    @ManyToOne
+    @JoinColumn(name = "user")
+    private User user;
 }
